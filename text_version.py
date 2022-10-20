@@ -3,14 +3,22 @@
 """
 Reads sudoku inputs from a file
 :param: the name of the file
-:return: list of ints
+:return: list of 2d arrays
 """
 def read_boards(filename):
     boards = []
     with open(filename, 'r') as f:
-        boards = f.readlines()
-        boards = [x.split(',')[0] for x in boards]
-        return [n.replace('.', '0') for n in boards]
+        data = f.readlines()
+        data = [x.split(',')[0] for x in data]
+
+        for n in data:
+            board = []
+            for i in range(9):
+                for j in range(9):
+                    board.append(n[j + i*9])
+            boards.append(board)    
+
+        return boards
 
 
 """
@@ -33,6 +41,9 @@ def pretty_print(board):
                 print(current)
             else:
                 print(current, end='')
+
+
+
 
 
 def row_valid(pos, board, input):
@@ -63,16 +74,18 @@ def valid(board, pos, num):
     # check column
     currentColumn = []
     for i in range(9):
-        currentColumn.append(board[col + i*9])
-    
-    if str(num) in currentColumn:
-        return False
+        if str(num) == board[col + i*9]:
+            return False
 
 
-def solve(pos, value):
+    # check box
+    boxValues = []
+    for i in range(3):
+        for j in range(9):
+            pass
+
     
-    
-    pass
+
 
 
 
